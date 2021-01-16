@@ -11,10 +11,6 @@ import Types exposing (..)
 import Url
 
 
-
--- main : Program flags model msg
-
-
 main : Program () Model Msg
 main =
     Browser.application

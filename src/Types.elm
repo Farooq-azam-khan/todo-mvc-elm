@@ -9,7 +9,7 @@ import Url
 type alias Model =
     { key : Nav.Key
     , url : Url.Url
-    , todos : FetchTodos
+    , todos : List Todo
     }
 
 

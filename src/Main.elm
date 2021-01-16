@@ -4,7 +4,7 @@ import Browser
 import Browser.Navigation as Nav
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick)
+import Html.Events exposing (..)
 import Http
 import Json.Decode as D exposing (Decoder, bool, field, int, map3, string)
 import Types exposing (..)

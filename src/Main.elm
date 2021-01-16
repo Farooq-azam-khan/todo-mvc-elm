@@ -94,34 +94,46 @@ view : Model -> Browser.Document Msg
 view model =
     { title = "Todo MVC"
     , body =
-        [ text "The current URL is: "
-        , b [] [ text (Url.toString model.url) ]
-        , ul []
-            [ viewLink "/home"
-            , viewLink "/profile"
-            , viewLink "/todos/"
-            ]
-        , case model.todos of
-            Success ts ->
-                todosView ts
-
-            Failure ->
-                text "failed to load todos"
-
-            Loading ->
-                text "loading todos"
+        [ h1 [] [text "todos"]
+        , input [placeholder "What needs to be done?"
+        , value model.new_todo
+        , onInput UpdateTodo
+        ] []
+        , button [onClick CreateNewTodo] [text "Add Todo"]
+        , todosView model.todos model.filted_option
+        , text (String.append (String.fromInt(displayCheckedItems model.todos)) " items left")
+        , button [onClick (ChangeFilterOption All) ] [text "All"]
+        , button [onClick (ChangeFilterOption Active) ] [text "Active"]
+        , button [onClick (ChangeFilterOption Completed) ] [text "Completed"]
+        , button [onClick ClearCompleted] [text "Clear Completed"]
         ]
+        
     }
 
+getUnCompletedTodos : List Todo -> List Todo 
+getUnCompletedTodos = List.filter (\todo -> not todo.completed)
 
-todosView : List Todo -> Html Msg
-todosView todos =
-    ul [] (List.map showTodo todos)
+displayCheckedItems : List Todo -> Int
+displayCheckedItems todos = List.length (getUnCompletedTodos todos)
+
+
+todosView : List Todo -> FilterOption -> Html Msg
+todosView todos filtered_options =
+    case filtered_options of 
+        All -> 
+            ul [] (List.map showTodo todos)
+        Active -> 
+            ul [] (List.map showTodo (List.filter (\todo -> not todo.completed) todos))
+        Completed -> 
+            ul [] (List.map showTodo (List.filter (\todo -> todo.completed) todos))
 
 
 showTodo : Todo -> Html Msg
 showTodo todo =
-    li [] [ text todo.title ]
+    li [] [ 
+        input [type_ "checkbox", onCheck (CompleteTodo todo), checked todo.completed] []
+        , text todo.title
+         ]
 
 
 viewLink : String -> Html Msg

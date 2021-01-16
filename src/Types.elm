@@ -10,6 +10,7 @@ type alias Model =
     { key : Nav.Key
     , url : Url.Url
     , todos : List Todo
+    , filted_option : FilterOption
     }
 
 
@@ -31,3 +32,5 @@ type alias Todo =
     , title : String
     , completed : Bool
     }
+
+type FilterOption = All | Active | Completed

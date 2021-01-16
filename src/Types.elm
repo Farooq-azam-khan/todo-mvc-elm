@@ -21,7 +21,11 @@ type Msg
     | LinkClicked Browser.UrlRequest
     | UrlChanged Url.Url
     | GotTodos (Result Http.Error (List Todo))
-
+    | UpdateTodo String 
+    | CreateNewTodo
+    | CompleteTodo Todo Bool 
+    | ChangeFilterOption FilterOption
+    | ClearCompleted
 
 type FetchTodos
     = Failure

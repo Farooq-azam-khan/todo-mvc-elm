@@ -27,14 +27,16 @@ todoDecoder : Decoder Todo
 todoDecoder =
     map3 Todo (field "id" int) (field "title" string) (field "completed" bool)
 
-
-init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
-init flags url key =
-    ( { key = key, url = url, todos = Loading }
-    , Http.get
+getTodos : Cmd Msg 
+getTodos = Http.get
         { url = "https://jsonplaceholder.typicode.com/todos"
         , expect = Http.expectJson GotTodos (D.list todoDecoder)
         }
+init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
+init flags url key =
+    ( { key = key, url = url, todos = [Todo 1 "test" False] 
+    , fetched_todos = NotFetching
+    , Cmd.none
     )
 
 

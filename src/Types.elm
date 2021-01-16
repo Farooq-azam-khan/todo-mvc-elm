@@ -10,6 +10,8 @@ type alias Model =
     { key : Nav.Key
     , url : Url.Url
     , todos : List Todo
+    , new_todo : String 
+    , fetched_todos : FetchTodos
     , filted_option : FilterOption
     }
 
@@ -24,6 +26,7 @@ type Msg
 type FetchTodos
     = Failure
     | Loading
+    | NotFetching
     | Success (List Todo)
 
 

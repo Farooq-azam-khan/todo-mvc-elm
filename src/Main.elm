@@ -36,6 +36,7 @@ init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url key =
     ( { key = key, url = url, todos = [Todo 1 "test" False] 
     , fetched_todos = NotFetching
+    , new_todo = ""
     , filted_option = All 
     }
     , Cmd.none

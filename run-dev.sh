@@ -1,1 +1,1 @@
- elm-live ./src/Main.elm --pushstate -- --debug
+ elm-live ./src/Main.elm --pushstate -- --debug --output=elm.js

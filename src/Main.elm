@@ -59,14 +59,35 @@ update msg model =
 
         UrlChanged url ->
             ( { model | url = url }, Cmd.none )
+        
+        UpdateTodo str -> 
+            ({model | new_todo=str}, Cmd.none)
+        
+        CreateNewTodo -> 
+            let 
+                theTodo = Todo ((List.length model.todos) + 1) model.new_todo False 
+                newTodos = List.append model.todos [theTodo]
+            in 
+                ({model | todos = newTodos, new_todo = ""}, Cmd.none)
 
+        ChangeFilterOption filter_op -> 
+            ({model | filted_option = filter_op}, Cmd.none)
+        CompleteTodo  todo bool -> 
+            let 
+                update_todo = Todo todo.id todo.title (not todo.completed)
+                updated_todos = List.map (\aTodo -> if aTodo.id == todo.id then update_todo else aTodo) model.todos
+            in
+                ({model | todos = updated_todos}, Cmd.none)
+        ClearCompleted -> 
+            ({model | todos = List.filter (\todo -> not todo.completed) model.todos}, Cmd.none)
         GotTodos result ->
             case result of
                 Ok d ->
-                    ( { model | todos = Success d }, Cmd.none )
+                    ( { model | fetched_todos = Success d }, Cmd.none )
 
                 Err _ ->
-                    ( { model | todos = Failure }, Cmd.none )
+                    ( { model | fetched_todos = Failure }, Cmd.none )
+
 
 
 view : Model -> Browser.Document Msg

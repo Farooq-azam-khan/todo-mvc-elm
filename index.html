@@ -1,18 +1,22 @@
 <!doctype html>
 <html>
+
 <head>
-<script src="./elm.js"></script>
+  <link rel="stylesheet" href="./src/styles.css" />
+  <script src="./elm.js"></script>
 </head>
+
 <body>
-<main id="elm-container">
-</main>
-<script>
-const container = document.querySelector('#elm-container')
-if (container) {
-  const app = Elm.Main.init({
-    node: container
-  })
-}
-</script>
+  <main id="elm-container">
+  </main>
+  <script>
+    const container = document.querySelector('#elm-container')
+    if (container) {
+      const app = Elm.Main.init({
+        node: container
+      })
+    }
+  </script>
 </body>
+
 </html>

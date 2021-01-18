@@ -94,20 +94,28 @@ view : Model -> Browser.Document Msg
 view model =
     { title = "Todo MVC"
     , body =
-        [ h1 [] [text "todos"]
-        , input [placeholder "What needs to be done?"
-        , value model.new_todo
-        , onInput UpdateTodo
+        [ div [ class "bg-gray-100 flex flex-col justify-center"] [h1 [class "text-6xl opacity-50 text-red-300 text-center"] [text "todos"]
+        , Html.form [ onSubmit CreateNewTodo
+        ,class "flex items-center justify-center mt-10"] [
+            input [
+            placeholder "What needs to be done?"
+            , value model.new_todo
+            , onInput UpdateTodo
+            , class "px-10 py-2 shadow-xl"
         ] []
-        , button [onClick CreateNewTodo] [text "Add Todo"]
+        ]
         , todosView model.todos model.filted_option
-        , text (String.append (String.fromInt(displayCheckedItems model.todos)) " items left")
-        , button [onClick (ChangeFilterOption All) ] [text "All"]
-        , button [onClick (ChangeFilterOption Active) ] [text "Active"]
-        , button [onClick (ChangeFilterOption Completed) ] [text "Completed"]
+        , div [class "flex justify-between "] [
+            text (String.append (String.fromInt(displayCheckedItems model.todos)) " items left")
+            , div [class "flex items-center space-x-6"] [
+                 filterButton All 
+                , filterButton Active 
+                , filterButton Completed
+        ]
         , button [onClick ClearCompleted] [text "Clear Completed"]
         ]
-        
+        ]
+        ]
     }
 
 filterButton : FilterOption -> Html Msg 

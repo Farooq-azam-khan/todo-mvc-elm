@@ -1,12 +1,13 @@
 module Main exposing (main)
 
+-- import Http
+-- import Json.Decode as D exposing (Decoder, bool, field, int, map3, string)
+
 import Browser
 import Browser.Navigation as Nav
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
-import Http
-import Json.Decode as D exposing (Decoder, bool, field, int, map3, string)
 import Types exposing (..)
 import Url
 
@@ -23,15 +24,18 @@ main =
         }
 
 
-todoDecoder : Decoder Todo
-todoDecoder =
-    map3 Todo (field "id" int) (field "title" string) (field "completed" bool)
 
-getTodos : Cmd Msg 
-getTodos = Http.get
-        { url = "https://jsonplaceholder.typicode.com/todos"
-        , expect = Http.expectJson GotTodos (D.list todoDecoder)
-        }
+-- todoDecoder : Decoder Todo
+-- todoDecoder =
+--     map3 Todo (field "id" int) (field "title" string) (field "completed" bool)
+-- getTodos : Cmd Msg
+-- getTodos =
+--     Http.get
+--         { url = "https://jsonplaceholder.typicode.com/todos"
+--         , expect = Http.expectJson GotTodos (D.list todoDecoder)
+--         }
+
+
 init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags url key =
     ( { key = key, url = url, todos = [Todo 1 "test" False] 

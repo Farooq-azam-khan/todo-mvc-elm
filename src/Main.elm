@@ -110,6 +110,15 @@ view model =
         
     }
 
+filterButton : FilterOption -> Html Msg 
+filterButton filted_option = case filted_option of 
+                                All -> 
+                                    button [onClick (ChangeFilterOption All) ] [text "All"]
+                                Active -> 
+                                    button [onClick (ChangeFilterOption Active) ] [text "Active"]
+                                Completed -> 
+                                    button [onClick (ChangeFilterOption Completed) ] [text "Completed"]
+
 getUnCompletedTodos : List Todo -> List Todo 
 getUnCompletedTodos = List.filter (\todo -> not todo.completed)
 

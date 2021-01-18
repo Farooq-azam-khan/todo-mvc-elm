@@ -157,9 +157,9 @@ showTodo todo =
          ]
 
 
-viewLink : String -> Html Msg
-viewLink path =
-    li [] [ a [ href path ] [ text path ] ]
+-- viewLink : String -> Html Msg
+-- viewLink path =
+--     li [] [ a [ href path ] [ text path ] ]
 
 
 subs : Model -> Sub msg
